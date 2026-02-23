@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class NotificationController extends AbstractController
@@ -14,14 +14,14 @@ final class NotificationController extends AbstractController
     #[Route('/notifications', name: 'app_notifications', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
-        // 1. Extract and validate user_id (Task 2.2)
+        // Extract and validate user_id
         $userId = $request->query->get('user_id');
 
         if (!$userId) {
             return new JsonResponse(['error' => 'Parameter "user_id" is required'], 400);
         }
 
-        // 2. Fetch User with relations using the EntityManager (Task 2.3)
+        // Fetch User with relations using the EntityManager
         $user = $entityManager->getRepository(User::class)->find($userId);
 
         if (!$user) {
@@ -32,7 +32,7 @@ final class NotificationController extends AbstractController
             return new JsonResponse([
                 'title' => 'Special Offer!',
                 'description' => 'We noticed you haven\'t been active. Upgrade to Premium today!',
-                'cta' => 'Upgrade Now'
+                'cta' => 'https://trendos.com/'
             ]);
         }
 
@@ -42,24 +42,24 @@ final class NotificationController extends AbstractController
 
     private function shouldSendNotification(User $user): bool
     {
-        // 3.1 Rule "No Android": False if any platform matches 'android'
+        // Rule "No Android": False if any platform matches 'android'
         foreach ($user->getDevices() as $device) {
             if (strtolower($device->getPlatform()) === 'android') {
                 return false;
             }
         }
 
-        // 3.2 Rule "Not Premium": Check is_premium flag == 0 (false)
+        // Rule "Not Premium": Check is_premium flag == 0 (false)
         if ($user->isPremium() === true) {
             return false;
         }
 
-        // 3.3 Rule "Spain Only": Check country_code == 'ES'
+        // Rule "Spain Only": Check country_code == 'ES'
         if ($user->getCountryCode() !== 'ES') {
             return false;
         }
 
-        // 3.4 Rule "Inactivity": Check last_active_at is older than 7 days
+        // Rule "Inactivity": Check last_active_at is older than 7 days
         $sevenDaysAgo = new \DateTime('-7 days');
         if ($user->getLastActiveAt() > $sevenDaysAgo) {
             return false;
