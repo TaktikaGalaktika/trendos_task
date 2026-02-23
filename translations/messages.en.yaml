@@ -1,0 +1,5 @@
+notification:
+    inactivity_offer:
+        title: "Setup your Android device"
+        description: "Phasellus rhoncus ante dolor, at semper metus aliquam quis. English version description."
+        cta: "https://trendos.com/en"

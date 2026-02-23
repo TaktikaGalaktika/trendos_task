@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -22,17 +24,17 @@ class User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_premium = null;
+    #[ORM\Column(name: "is_premium", nullable: true)]
+    private ?bool $isPremium = null;
 
-    #[ORM\Column(length: 2, nullable: true)]
-    private ?string $country_code = null;
+    #[ORM\Column(name: "country_code", length: 2, nullable: true)]
+    private ?string $countryCode = null;
 
-    #[ORM\Column]
-    private ?\DateTime $last_active_at = null;
+    #[ORM\Column(name: "last_active_at", type: "datetime")]
+    private ?\DateTimeInterface $lastActiveAt = null;
 
-    #[ORM\Column]
-    private ?\DateTime $created_at = null;
+    #[ORM\Column(name: "created_at", type: "datetime")]
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @var Collection<int, Device>
@@ -76,48 +78,48 @@ class User
 
     public function isPremium(): ?bool
     {
-        return $this->is_premium;
+        return $this->isPremium;
     }
 
-    public function setIsPremium(?bool $is_premium): static
+    public function setIsPremium(?bool $isPremium): static
     {
-        $this->is_premium = $is_premium;
+        $this->isPremium = $isPremium;
 
         return $this;
     }
 
     public function getCountryCode(): ?string
     {
-        return $this->country_code;
+        return $this->countryCode;
     }
 
-    public function setCountryCode(?string $country_code): static
+    public function setCountryCode(?string $countryCode): static
     {
-        $this->country_code = $country_code;
+        $this->countryCode = $countryCode;
 
         return $this;
     }
 
-    public function getLastActiveAt(): ?\DateTime
+    public function getLastActiveAt(): ?\DateTimeInterface
     {
-        return $this->last_active_at;
+        return $this->lastActiveAt;
     }
 
-    public function setLastActiveAt(\DateTime $last_active_at): static
+    public function setLastActiveAt(\DateTimeInterface $lastActiveAt): static
     {
-        $this->last_active_at = $last_active_at;
+        $this->lastActiveAt = $lastActiveAt;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $created_at): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

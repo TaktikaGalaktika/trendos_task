@@ -1,17 +1,27 @@
-# Trendos Backend Notification API
+# 🚀 Trendos Notification API
+A clean, production-ready implementation of the Notification Center API using Symfony 7 and PHP 8.2.
 
-This is a Symfony-based API for the Notification Center task.
+## 🏗️ Key Highlights
 
-## Setup Instructions
-1. Clone the repository.
-2. Ensure Docker Desktop is running.
-3. Run `docker compose up -d` to build and start the containers.
-4. Import the database dump:
-   `Get-Content dump.sql | docker compose exec -T database mysql -uroot -proot trendos_db`
-5. The API is accessible at `http://localhost:8080/notifications?user_id=1`.
+- Performance: Optimized UserRepository with a single LEFT JOIN to prevent N+1 query issues.
 
-## Tech Stack
-- PHP 8.2 (Symfony Skeleton)
+- Service Layer: Business logic is isolated in NotificationService for better maintainability.
+
+- i18n: Multi-language support (EN/ES) powered by Symfony Translation, determined by user data.
+
+- Strict Typing: Full use of strict_types=1, readonly properties, and modern PHP 8.2 standards.
+
+- Automated Setup: Database schema and fixtures are auto-imported via Docker on startup.
+
+## 🛠️ Setup
+
+1. docker compose up -d
+2. docker compose exec php composer install
+3. docker compose exec php bin/console cache:clear
+4. The API will be live at: http://localhost:8080/notifications?user_id=1
+
+## 🧪 Tech Stack
+- PHP 8.2 (Strict Mode)
+- Symfony 7 (Skeleton + ORM Pack + Translation)
 - MySQL 8.0
 - Nginx
-- Adminer (Database UI at localhost:8081)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\DeviceRepository;
@@ -20,8 +22,8 @@ class Device
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $label = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $created_at = null;
+    #[ORM\Column(name: "created_at", type: "datetime", nullable: true)]
+    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'devices')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,26 +46,26 @@ class Device
         return $this;
     }
 
-    public function getlabel(): ?string
+    public function getLabel(): ?string
     {
         return $this->label;
     }
 
-    public function setlabel(?string $label): static
+    public function setLabel(?string $label): static
     {
         $this->label = $label;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?\DateTimeInterface $createdAt): static
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

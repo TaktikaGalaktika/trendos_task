@@ -1,0 +1,5 @@
+notification:
+    inactivity_offer:
+        title: "Configurar dispositivo Android"
+        description: "Phasellus rhoncus ante dolor, at semper metus aliquam quis. Praesent finibus pharetra libero, ut feugiat mauris dapibus blandit. Donec sit."
+        cta: "https://trendos.com/"
